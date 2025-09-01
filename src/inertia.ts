@@ -170,10 +170,7 @@ export class Inertia {
       await Promise.all(
         Object.entries(props).map(async ([key, value]) => {
           if (typeof value === "function") {
-            const result = await value({
-              request: this.request,
-              response: this.response,
-            });
+            const result = await value(this.request, this.response);
             return this.#resolveProp(key, result);
           }
 
