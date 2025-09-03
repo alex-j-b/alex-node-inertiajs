@@ -8,5 +8,4 @@ A lightweight Node.js adapter for [Inertia.js](https://inertiajs.com/) that lets
 If you’re already using a backend framework, check out these adapters instead:
 
 - [express-inertia](https://npmjs.com/package/express-inertia)
-- [fastify-inertia](https://npmjs.com/package/fastify-inertia)
-- [hapi-inertia](https://npmjs.com/package/hapi-inertia)
+- [fastify-inertiajs](https://npmjs.com/package/fastify-inertiajs)

@@ -12,9 +12,14 @@
     "dist"
   ],
   "keywords": [
-    "express",
-    "inertia",
-    "middleware"
+    "inertiajs",
+    "inertiajs-adapter",
+    "inertiajs-plugin",
+    "inertiajs-middleware",
+    "express-inertiajs-middleware",
+    "express-inertiajs-adapter",
+    "fastify-inertiajs-plugin",
+    "fastify-inertiajs-adapter"
   ],
   "author": "Mahendra Chavda",
   "license": "MIT",
