@@ -457,7 +457,15 @@ export class Inertia {
       status = 303;
     }
 
+    this.response.setHeader("Vary", InertiaHeaders.Inertia);
     this.response.statusCode = status;
+
+    // @ts-ignore
+    if (this.response.redirect) {
+      // @ts-ignore
+      return this.response.redirect(status, location);
+    }
+
     this.response.setHeader("Location", encodedLocation);
 
     const body = this.request?.headers["accept"]?.includes("html")
@@ -465,7 +473,6 @@ export class Inertia {
       : `${status}. Redirecting to ${encodedLocation}`;
 
     this.response.setHeader("Content-Length", Buffer.byteLength(body));
-    this.response.setHeader("Vary", InertiaHeaders.Inertia);
 
     if (method === "HEAD") {
       this.response.end();
