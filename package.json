@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "A lightweight NodeJS adapter for Inertia.js that lets you build modern single-page applications with server-side rendering.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
     "build": "npx tsc",
