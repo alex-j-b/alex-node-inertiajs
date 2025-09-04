@@ -18,29 +18,26 @@ import type { InertiaConfig, ResolvedConfig, SharedData } from "./types.js";
 export function defineConfig<T extends SharedData>(
   config: InertiaConfig<T>
 ): ResolvedConfig<T> {
-  const {
-    rootElementId,
-    assetsVersion,
-    encryptHistory,
-    indexEntrypoint,
-    indexBuildEntrypoint,
-    vite,
-    ...reset
-  } = config;
   return {
-    rootElementId: rootElementId || "app",
-    assetsVersion: assetsVersion || "v1",
-    encryptHistory: encryptHistory || true,
+    rootElementId: config.rootElementId ?? "app",
+    assetsVersion: config.assetsVersion ?? "v1",
+    encryptHistory: config.encryptHistory ?? true,
+    sharedData: config.sharedData ?? ({} as T),
     indexEntrypoint:
-      indexEntrypoint || path.resolve(process.cwd(), "index.html"),
+      config.indexEntrypoint ?? path.resolve(process.cwd(), "index.html"),
     indexBuildEntrypoint:
-      indexBuildEntrypoint ||
+      config.indexBuildEntrypoint ??
       path.resolve(process.cwd(), "build/client/index.html"),
-    vite: {
+    vite: config.vite ?? {
       server: { middlewareMode: true },
       appType: "custom",
-      ...vite,
     },
-    ...reset,
+    ...(config.ssrEnabled
+      ? {
+          ssrEnabled: true,
+          ssrEntrypoint: config.ssrEntrypoint!,
+          ssrBuildEntrypoint: config.ssrBuildEntrypoint!,
+        }
+      : { ssrEnabled: false }),
   };
 }

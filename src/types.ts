@@ -48,15 +48,21 @@ export interface BaseInertiaConfig<T extends SharedData = SharedData> {
 }
 
 interface InertiaConfigWithoutSSR<T extends SharedData = SharedData>
-  extends BaseConfig<T> {
-  ssrEnabled?: false;
+  extends Omit<
+    BaseInertiaConfig<T>,
+    "ssrEnabled" | "ssrEntrypoint" | "ssrBuildEntrypoint"
+  > {
+  ssrEnabled: false;
   ssrEntrypoint?: never;
   ssrBuildEntrypoint?: never;
 }
 
 interface InertiaConfigWithSSR<T extends SharedData = SharedData>
-  extends BaseConfig<T> {
-  ssrEnabled?: true;
+  extends Omit<
+    BaseInertiaConfig<T>,
+    "ssrEnabled" | "ssrEntrypoint" | "ssrBuildEntrypoint"
+  > {
+  ssrEnabled: true;
   ssrEntrypoint: string;
   ssrBuildEntrypoint: string;
 }
@@ -68,7 +74,7 @@ export type InertiaConfig<T extends SharedData = SharedData> =
 /**
  * Resolved inertia configuration
  */
-export interface BaseConfig<T extends SharedData = SharedData> {
+export interface BaseResolvedConfig<T extends SharedData = SharedData> {
   rootElementId: string;
   assetsVersion: string;
   encryptHistory: boolean;
@@ -78,23 +84,29 @@ export interface BaseConfig<T extends SharedData = SharedData> {
   vite: InlineConfig | ViteResolveConfig;
 }
 
-interface ConfigWithoutSSR<T extends SharedData = SharedData>
-  extends BaseConfig<T> {
+interface ResolvedConfigWithoutSSR<T extends SharedData = SharedData>
+  extends Omit<
+    BaseResolvedConfig<T>,
+    "ssrEnabled" | "ssrEntrypoint" | "ssrBuildEntrypoint"
+  > {
   ssrEnabled: false;
   ssrEntrypoint?: never;
   ssrBuildEntrypoint?: never;
 }
 
-interface ConfigWithSSR<T extends SharedData = SharedData>
-  extends BaseConfig<T> {
+interface ResolvedConfigWithSSR<T extends SharedData = SharedData>
+  extends Omit<
+    BaseResolvedConfig<T>,
+    "ssrEnabled" | "ssrEntrypoint" | "ssrBuildEntrypoint"
+  > {
   ssrEnabled: true;
   ssrEntrypoint: string;
   ssrBuildEntrypoint: string;
 }
 
 export type ResolvedConfig<T extends SharedData = SharedData> =
-  | ConfigWithSSR<T>
-  | ConfigWithoutSSR<T>;
+  | ResolvedConfigWithSSR<T>
+  | ResolvedConfigWithoutSSR<T>;
 
 export interface PageObject<TPageProps extends PageProps = PageProps> {
   ssrHead?: string[];
