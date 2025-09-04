@@ -321,7 +321,7 @@ export class Inertia {
       .replace(this.#inertiaHeadTag, () => "")
       .replace(
         this.#inertiaBodyTag,
-        () => `<div id=${id}" data-page="${dataPage}"></div>` || ""
+        () => `<div id="${id}" data-page="${dataPage}"></div>` || ""
       );
     return this.response.end(html);
   }
