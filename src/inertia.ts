@@ -260,10 +260,20 @@ export class Inertia {
   /**
    * Resolve the root view
    */
-  #resolveRootView() {
-    return process.env.NODE_ENV !== "production"
-      ? this.config.indexEntrypoint
-      : this.config.indexBuildEntrypoint;
+  async #resolveRootView() {
+    const entrypoint =
+      process.env.NODE_ENV !== "production"
+        ? this.config.indexEntrypoint
+        : this.config.indexBuildEntrypoint;
+
+    if (typeof entrypoint === "function") {
+      return await entrypoint(
+        this.adapter.getRequest(),
+        this.adapter.getResponse()
+      );
+    }
+
+    return await readFile(entrypoint, "utf8");
   }
 
   /**
@@ -287,7 +297,7 @@ export class Inertia {
    * resolve index page
    */
   async #resolveLayout() {
-    let template = await readFile(this.#resolveRootView(), "utf8");
+    let template = await this.#resolveRootView();
     if (this.vite) {
       template = await this.vite.transformIndexHtml(
         this.request.url || "/",
