@@ -25,8 +25,6 @@
   "author": "Mahendra Chavda",
   "license": "MIT",
   "devDependencies": {
-    "@types/express": "^5.0.3",
-    "@types/express-session": "^1.18.2",
     "@types/node": "^24.3.0",
     "typescript": "^5.9.2"
   },
