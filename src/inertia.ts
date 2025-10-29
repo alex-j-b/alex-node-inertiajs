@@ -354,7 +354,7 @@ export class Inertia {
     const pageObject = await this.#buildPageObject(component, pageProps);
     const isInertiaRequest = !!this.adapter.getHeader(InertiaHeaders.Inertia);
 
-    this.response.setHeader("Vary", InertiaHeaders.Inertia);
+    this.adapter.setHeader("Vary", InertiaHeaders.Inertia);
 
     if (!isInertiaRequest) {
       const shouldRenderOnServer = await this.#shouldRenderOnServer(component);
